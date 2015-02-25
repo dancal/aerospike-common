@@ -145,6 +145,7 @@ typedef struct as_string_s {
  *	@relatesalso as_string
  */
 as_string * as_string_init(as_string * string, char * value, bool free);
+as_string * as_string_init2(as_string * string, char * value, uint32_t size, bool free);
 
 /**
  *	Create and initialize a new heap allocated `as_string`.

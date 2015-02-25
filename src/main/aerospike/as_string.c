@@ -50,9 +50,26 @@ static inline as_string * as_string_cons(as_string * string, bool free, char * v
 	return string;
 }
 
+static inline as_string * as_string_cons2(as_string * string, bool free, char * value, uint32_t size, bool value_free)
+{
+	if ( !string ) return string;
+
+	as_val_cons((as_val *) string, AS_STRING, free);
+	string->free = value_free;
+	string->value = value;
+	string->len = size;
+
+	return string;
+}
+
 as_string * as_string_init(as_string * string, char * value, bool free)
 {
 	return as_string_cons(string, false, value, free);
+}
+
+as_string * as_string_init2(as_string * string, char * value, uint32_t size, bool free)
+{
+	return as_string_cons2(string, false, value, size, free);
 }
 
 as_string * as_string_new(char * value, bool free)
@@ -192,6 +209,7 @@ char * as_string_val_tostring(const as_val * v)
 	strcpy(str + 1, s->value);
 	*(str + 1 + sl) = '\"';
 	*(str + 1 + sl + 1) = '\0';
+
 	return str;
 }
 
